@@ -1,72 +1,75 @@
 window.onload = function() {
 
+    class Emojis{
+        constructor(container){
+            this.emojisContainer = document.querySelector(container);
+            this.symbols = ['🐶', '🐱', '🐭', '🐹', '🐰', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐙', '🐵', '🦄', '🐞', '🦀', '🐟', '🐊', '🐓', '🦃'];
+        }
+
+        init(){
+            this.emojisContainer.addEventListener( 'click', this.clickOnEmoji);
+            this.createEmojis();
+        }
 
 
-var emojis = document.querySelector('.emojis');
-emojis.addEventListener( 'click', function(event) {
-    // console.log(event.target.textContent)
-    // console.log(event.target.parentElement.classList.contains('card')  )
+        clickOnEmoji(event){
+            let parent = event.target.parentElement;
+            if(parent.classList.contains('card') ){
+                parent.classList.toggle('is-flipped')
+            }
+        }
 
-    var parent = event.target.parentElement;
-    if(parent.classList.contains('card') ){
-        parent.classList.toggle('is-flipped')
+        mixedArr(arr) {
+            arr = arr.slice();
+            let result = [];
+            while (arr.length){
+                result.push( arr.splice(Math.floor(Math.random() * arr.length), 1)[0]  ) ;
+            }
+            if (Math.floor(Math.random() * 10) > 7){
+                return result;
+            }else {
+                return this.mixedArr(result);
+            }
+        }
+
+
+        createEmojis() {
+            let mixedSymbols = this.mixedArr(this.symbols).splice(0, 6)
+            let emojiSimbols = this.mixedArr(mixedSymbols.concat(mixedSymbols))
+            for (var i=0; i < 12; i++){
+                this.createEmojiElement(i, emojiSimbols[i])
+            }
+        }
+
+        createEmojiElement(index, simbol){
+            var emoji = document.createElement('div');
+            emoji.className = "emoji_" + index;
+
+            var card = document.createElement('div')
+            card.className = "card card_" + index;
+
+            var card_face_front = document.createElement('div');
+            card_face_front.className = "card__face card__face--front";
+
+
+            var card_face_back = document.createElement('div');
+            card_face_back.className = "card__face card__face--back";
+            card_face_back.textContent =  simbol;
+
+            card.appendChild(card_face_front);
+            card.appendChild(card_face_back);
+
+            emoji.appendChild(card);
+
+            this.emojisContainer.appendChild(emoji)
+        }
     }
 
-});
-
-
-var emojiSimbols = ['🐶', '🐰', '🐯', '🐮', '🐙', '🐞', '🐶', '🐰', '🐯', '🐮', '🐙', '🐞'];
-
-function mixedArr(arr) {
-    arr = arr.slice();
-    result = [];
-    while (arr.length){
-        result.push( arr.splice(Math.floor(Math.random() * arr.length), 1)[0]  ) ;
-    }
-    if (Math.floor(Math.random() * 10) > 7){
-        return result;
-    }else {
-        return mixedArr(result);
-    }
-
-}
-
-function createEmoji(parentClass, num, emojiSimbols) {
-
-    var parentDiv = document.querySelector(parentClass);
-    var mixedEmojiSimbols = mixedArr(emojiSimbols);
-
-    for (var i=0; i < num; i++){
-
-        var emoji = document.createElement('div');
-        emoji.className = "emoji_" + i;
-
-        var card = document.createElement('div')
-        card.className = "card card_" + i;
-
-        var card_face_front = document.createElement('div');
-        card_face_front.className = "card__face card__face--front";
-        // card_face_front.textContent = mixedEmojiSimbols[i];
-
-        var card_face_back = document.createElement('div');
-        card_face_back.className = "card__face card__face--back";
-        card_face_back.textContent =  mixedEmojiSimbols[i];
-
-        card.appendChild(card_face_front);
-        card.appendChild(card_face_back);
-
-        emoji.appendChild(card);
-
-        parentDiv.appendChild(emoji)
-    }
-
-}
-
-createEmoji('.emojis', 12, emojiSimbols);
 
 
 
-
+    var emojis = new  Emojis('.emojis');
+    emojis.init();
 
 
 
