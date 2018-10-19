@@ -1,0 +1,92 @@
+.emoji_0, .emoji_1, .emoji_2, .emoji_3, .emoji_4, .emoji_5, .emoji_6, .emoji_7, .emoji_8, .emoji_9,
+.emoji_10, .emoji_11, .emoji_12{
+    width: 130px;
+    height: 130px;
+    perspective: 600px;
+    display:  inline-block;
+    margin: 0px 25px 25px 0px ;
+}
+
+.card_0, .card_1, .card_2, .card_3, .card_4, .card_5, .card_6, .card_7, .card_8, .card_9,
+.card_10, .card_11, .card_12 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+}
+
+.card__face {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backface-visibility: hidden;
+
+}
+
+.card__face--front {
+    background: linear-gradient(to top right, #22AB93, #19668D);
+}
+
+.card__face--back {
+    text-align: center;
+    font-size: 75px;
+    background: white;
+    transform: rotateY( 180deg );
+}
+
+.card__face--front, .card__face--back{
+    border: 5px solid #fff;
+    border-radius: 9px;
+    box-shadow: 1px 1px 5px  rgba(0,0,0,0.5);
+    /*смещение по x — 1px, по y — 1px, размытие — 5px, прозрачность — 50%, цвет — черный*/
+}
+
+
+
+.card_0.is-flipped, .card_1.is-flipped, .card_2.is-flipped, .card_3.is-flipped, .card_4.is-flipped,
+.card_5.is-flipped, .card_6.is-flipped, .card_7.is-flipped, .card_8.is-flipped,
+.card_9.is-flipped, .card_10.is-flipped, .card_11.is-flipped, .card_12.is-flipped {
+    transform: rotateY(180deg);
+}
+
+
+body{
+    background-color: #CFD0CF;
+    color: #434344;
+}
+#title{
+    text-align: center;
+    margin-top: 40px;
+    font-family: "Arial", sans-serif;
+    font-size: 42px;
+    color: #434344;
+    /*ыровнен по центру*/
+    /*Интерлиньяж заголовка 47px*/
+    /*Шрифт Arial*/
+    /*Цвет и размер шрифта указаны в макете*/
+}
+
+.emojis{
+    margin: auto;
+    margin-top: 40px;
+    width: 620px;
+    height: 800px;
+    /*background: #2fcbff;*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
