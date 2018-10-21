@@ -33,14 +33,14 @@ window.onload = function() {
 
             switch ( this.openedEmojisIndex.length ) {
                 case 0:
-                    console.log('case 0')
+                    // console.log('case 0')
                     if( this.matchedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
                     emoji.clickEvent();
                     if ( this.openedEmojisIndex.indexOf(emoji.index) < 0 ) this.openedEmojisIndex.push(emoji.index);
                     break;
 
                 case 1:
-                    console.log('case 1')
+                    // console.log('case 1')
                     if( this.matchedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
                     if( this.openedEmojisIndex.indexOf(emoji.index) >= 0  ) {
                         emoji.clickEvent();
@@ -52,7 +52,7 @@ window.onload = function() {
                     var previosEmoji = this.emojis[ this.openedEmojisIndex[0] ];
                     var match = this.compareEmojiBySymbol(previosEmoji, emoji);
                     if(match){
-                        console.log('match')
+                        // console.log('match')
                         previosEmoji.addColor('green');
                         emoji.addColor('green');
                         this.matchedEmojisIndex.push(previosEmoji.index)
@@ -60,14 +60,14 @@ window.onload = function() {
                         this.openedEmojisIndex = [];
 
                     }else {
-                        console.log('not match')
+                        // console.log('not match')
                         previosEmoji.addColor('red');
                         emoji.addColor('red');
                         this.openedEmojisIndex.push(emoji.index)
                     }
                     break;
                 case 2:
-                    console.log('case 2')
+                    // console.log('case 2')
                     if( this.matchedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
                     if( this.openedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
 
