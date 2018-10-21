@@ -39,6 +39,7 @@
     border: 5px solid #fff;
     border-radius: 9px;
     box-shadow: 1px 1px 5px  rgba(0,0,0,0.5);
+    box-sizing:border-box;
     /*смещение по x — 1px, по y — 1px, размытие — 5px, прозрачность — 50%, цвет — черный*/
 }
 
@@ -75,8 +76,13 @@ body{
     /*background: #2fcbff;*/
 }
 
+.cardgreen{
+    background: #4cff4d;
+}
 
-
+.cardred{
+    background: #ff474d;
+}
 
 
 
