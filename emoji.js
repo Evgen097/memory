@@ -1,9 +1,10 @@
 
 class Emoji {
-    constructor(parent, index, simbol){
+    constructor(parent, index, symbol){
         this.parent = parent;
-        this.emoji = this.createElement(index, simbol);
+        this.emoji = this.createElement(index, symbol);
         this.index = index;
+        this.symbol = symbol;
     }
 
 

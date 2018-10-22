@@ -5,9 +5,9 @@ window.onload = function() {
             this.emojisContainer = document.querySelector(container);
             this.symbols = ['🐶', '🐱', '🐭', '🐹', '🐰', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐙', '🐵', '🦄', '🐞', '🦀', '🐟', '🐊', '🐓', '🦃'];
             this.emojis = [];
-            this.openedEmojis = [];
-            this.openedEmojisIndex = [];
-            this.matchedEmojisIndex = [];
+            this.openedIndex = [];
+            this.greenIndex = [];
+            this.redIndex = [];
         }
 
         init(){
@@ -16,68 +16,42 @@ window.onload = function() {
             this.appendEmojisToDom()
         }
 
-
         clickOnEmoji(event){
-
             var emojiClass = event.target.parentElement.parentElement.classList[0];
             var valid = /emoji_/.test( emojiClass )
             if (!valid) return;
             var index = Number( emojiClass.replace( /emoji_/, '') );
-
             var emoji = this.emojis.filter( emoji => index === emoji.index)[0];
-
             this.handleClick(emoji);
         }
 
-        handleClick(emoji){
+        handleClick(currentEmoji){
 
-            switch ( this.openedEmojisIndex.length ) {
+            if( this.greenIndex.indexOf(currentEmoji.index) >= 0  ) return;
+            if( this.redIndex.indexOf(currentEmoji.index) >= 0  ) return;
+
+            switch ( this.openedIndex.length ) {
                 case 0:
                     // console.log('case 0')
-                    if( this.matchedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
-                    emoji.clickEvent();
-                    if ( this.openedEmojisIndex.indexOf(emoji.index) < 0 ) this.openedEmojisIndex.push(emoji.index);
+                    if ( this.openedIndex.indexOf(currentEmoji.index) < 0 ) {
+                        this.openedIndex.push(currentEmoji.index);
+                        currentEmoji.clickEvent();
+                    };
+                    this.removeRedColor()
                     break;
 
                 case 1:
-                    // console.log('case 1')
-                    if( this.matchedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
-                    if( this.openedEmojisIndex.indexOf(emoji.index) >= 0  ) {
-                        emoji.clickEvent();
-                        this.openedEmojisIndex = [];
-                        return
-                    };
-                    emoji.clickEvent();
+                    var previosEmoji = this.emojis[ this.openedIndex[0] ];
 
-                    var previosEmoji = this.emojis[ this.openedEmojisIndex[0] ];
-                    var match = this.compareEmojiBySymbol(previosEmoji, emoji);
-                    if(match){
-                        // console.log('match')
-                        previosEmoji.addColor('green');
-                        emoji.addColor('green');
-                        this.matchedEmojisIndex.push(previosEmoji.index)
-                        this.matchedEmojisIndex.push(emoji.index)
-                        this.openedEmojisIndex = [];
-
+                    if(previosEmoji.index === currentEmoji.index){
+                        this.openedIndex = [];
+                    }else if (previosEmoji.symbol ===  currentEmoji.symbol){
+                        this.addToColorArr(previosEmoji.index, currentEmoji.index, 'green')
                     }else {
-                        // console.log('not match')
-                        previosEmoji.addColor('red');
-                        emoji.addColor('red');
-                        this.openedEmojisIndex.push(emoji.index)
+                        this.addToColorArr(previosEmoji.index, currentEmoji.index, 'red')
                     }
-                    break;
-                case 2:
-                    // console.log('case 2')
-                    if( this.matchedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
-                    if( this.openedEmojisIndex.indexOf(emoji.index) >= 0  ) return;
-
-                    emoji.clickEvent();
-
-                    this.emojis[ this.openedEmojisIndex[0] ].clickEvent().addColor('white');
-                    this.emojis[ this.openedEmojisIndex[1] ].clickEvent().addColor('white');
-
-                    this.openedEmojisIndex = [];
-                    this.openedEmojisIndex.push(emoji.index);
+                    this.openedIndex = [];
+                    currentEmoji.clickEvent();
                     break;
                 default:
                     console.log('hello default')
@@ -85,9 +59,26 @@ window.onload = function() {
 
         }
 
-        compareEmojiBySymbol(elem_1, elem_2){
-            return  elem_1.emoji.dataset.symbol == elem_2.emoji.dataset.symbol ;
+        addToColorArr(elem_1, elem_2, color){
+            switch ( color ) {
+                case 'green':
+                    this.greenIndex.push(elem_1, elem_2);
+                    this.greenIndex.forEach( index => this.emojis[index].addColor(color))
+                    break;
+                case 'red':
+                    this.redIndex.push(elem_1, elem_2);
+                    this.redIndex.forEach( index => this.emojis[index].addColor('red'))
+                    break;
+                default:
+                    console.log('hello default color arr')
+            }
+        }
 
+        removeRedColor(){
+            this.redIndex.forEach( index => {
+                this.emojis[index].clickEvent().addColor('white')
+            });
+            this.redIndex = [];
         }
 
         mixedArr(arr) {
@@ -118,17 +109,11 @@ window.onload = function() {
             return twelveSimbols;
         }
 
-
         appendEmojisToDom(){
             this.emojis.forEach( emoji => emoji.appendToParent())
         }
 
-
-
-
-
     }
-
 
 
 
