@@ -8,31 +8,70 @@ window.onload = function() {
             this.openedIndex = [];
             this.greenIndex = [];
             this.redIndex = [];
+            this.timer = new Timer();
+            this.endgame = document.querySelector('#endgame');
+            this.wingame = document.querySelector('#wingame');
+            this.losegame = document.querySelector('#losegame');
         }
 
         init(){
             this.emojisContainer.addEventListener( 'click', this.clickOnEmoji.bind(this));
             this.createEmojis();
-            this.appendEmojisToDom()
+            this.appendEmojisToDom();
+        }
+
+        winGame(){
+            this.endgame.style.display = 'block';
+            this.wingame.style.display = 'block';
+            this.timer.timerStop()
+        }
+
+        startNewGame(){
+            this.emojis = [];
+            this.openedIndex = [];
+            this.greenIndex = [];
+            this.redIndex = [];
+            this.removeCards();
+            this.createEmojis();
+            this.appendEmojisToDom();
+            this.endgame.style.display = 'none';
+            this.wingame.style.display = 'none';
+            this.losegame.style.display = 'none';
+            this.timer.setTime()
+        }
+
+
+        removeCards(){
+            for(var i=0; i<=11; i++){
+                var card = document.querySelector('.emoji_'+i);
+                if(card){
+                    card.parentNode.removeChild(card);
+                }
+            }
         }
 
         clickOnEmoji(event){
             var emojiClass = event.target.parentElement.parentElement.classList[0];
-            var valid = /emoji_/.test( emojiClass )
-            if (!valid) return;
-            var index = Number( emojiClass.replace( /emoji_/, '') );
-            var emoji = this.emojis.filter( emoji => index === emoji.index)[0];
-            this.handleClick(emoji);
+            var card = /emoji_/.test( emojiClass )
+            if (card){
+                var index = Number( emojiClass.replace( /emoji_/, '') );
+                var emoji = this.emojis.filter( emoji => index === emoji.index)[0];
+                this.handleClickEmoji(emoji);
+                this.handleClickTimer()
+                return;
+            }
+            if (event.target.id === 'playagain'){
+                this.startNewGame()
+            }
         }
 
-        handleClick(currentEmoji){
+        handleClickEmoji(currentEmoji){
 
             if( this.greenIndex.indexOf(currentEmoji.index) >= 0  ) return;
             if( this.redIndex.indexOf(currentEmoji.index) >= 0  ) return;
 
             switch ( this.openedIndex.length ) {
                 case 0:
-                    // console.log('case 0')
                     if ( this.openedIndex.indexOf(currentEmoji.index) < 0 ) {
                         this.openedIndex.push(currentEmoji.index);
                         currentEmoji.clickEvent();
@@ -41,6 +80,7 @@ window.onload = function() {
                     break;
 
                 case 1:
+
                     var previosEmoji = this.emojis[ this.openedIndex[0] ];
 
                     if(previosEmoji.index === currentEmoji.index){
@@ -52,6 +92,7 @@ window.onload = function() {
                     }
                     this.openedIndex = [];
                     currentEmoji.clickEvent();
+                    if(this.greenIndex.length === 12) this.winGame();
                     break;
                 default:
                     console.log('hello default')
@@ -94,7 +135,6 @@ window.onload = function() {
             }
         }
 
-
         createEmojis() {
             let emojiSimbols = this.genereteEmojiSet();
             for (var i=0; i < 12; i++){
@@ -113,8 +153,13 @@ window.onload = function() {
             this.emojis.forEach( emoji => emoji.appendToParent())
         }
 
-    }
+        handleClickTimer(){
+            if(!this.timer.isRunning && this.endgame.style.display !== 'block') {
+                this.timer.startNewTimer()
+            };
+        }
 
+    }
 
 
     var emojis = new  Emojis('.emojis');

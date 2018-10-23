@@ -5,6 +5,7 @@
     perspective: 600px;
     display:  inline-block;
     margin: 0px 25px 25px 0px ;
+    cursor: pointer;
 }
 
 .card_0, .card_1, .card_2, .card_3, .card_4, .card_5, .card_6, .card_7, .card_8, .card_9,
@@ -69,10 +70,13 @@ body{
 }
 
 .emojis{
+    position: relative;
     margin: auto;
     margin-top: 40px;
     width: 620px;
-    height: 800px;
+    height: 455px;
+
+    /*background-color: yellow;*/
     /*background: #2fcbff;*/
 }
 
@@ -83,6 +87,87 @@ body{
 .cardred{
     background: #ff474d;
 }
+
+#timer{
+    text-align: center;
+    margin-top: 30px;
+    font-family: "Arial", sans-serif;
+    font-size: 32px;
+    color: #434344;
+    line-height: 36px;
+    font-weight: bold;
+}
+
+#endgame{
+    display: none;
+    height: 100%;
+    width: 100%;
+    /*background: #ff1014;*/
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+
+}
+
+#popup{
+    position: relative;
+    margin: 135px 0px 0px 147px;
+    padding: 0px 0px 0px 0px;
+    background: white;
+    width: 300px;
+    height: 180px;
+}
+
+#playagain {
+    /*background-color: #4CAF50; !* Green *!*/
+    position: absolute;
+    top: 118px;
+    left: 70px;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 20px;
+    border-radius: 12px;
+    font-family: "Arial", sans-serif;
+    font-weight: bold;
+    background: linear-gradient(to top right, #19668D, #22AB93);
+    box-shadow: 1px 1px 0px rgba(0,0,0,0.5); /* Параметры тени */
+    height: 40px;
+    padding: 0px 30px 0px 30px;
+
+}
+
+
+#wingame, #losegame {
+    display: none;
+    position: relative;
+    margin: auto;
+    background-color: #991520;
+}
+#wingame{
+    /*display: block;*/
+    width: 90px;
+}
+#losegame{
+    /*display: block;*/
+    width: 118px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
