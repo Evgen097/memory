@@ -18,7 +18,7 @@ class Emoji {
 
         var card_face_front = document.createElement('div');
         card_face_front.className = "card__face card__face--front";
-        card_face_front.textContent =  symbol;
+        card_face_front.textContent =  '';
 
         var card_face_back = document.createElement('div');
         card_face_back.className = "card__face card__face--back";

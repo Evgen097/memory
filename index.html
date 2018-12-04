@@ -1,54 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="animation.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./animation.css">
+
+    <title>QUnit Example</title>
+    <link rel="stylesheet" href="qunit-2.7.1.css">
+
+
 </head>
-<body>
+    <body>
+        <div id="qunit"></div>
+        <div id="qunit-fixture"></div>
 
-    <div id="title">Memoji</div>
+        <div id="title">Memoji</div>
 
-    <div class="emojis">
+        <div class="emojis">
 
-        <div id="endgame">
-            <div id="popup">
-                <div id="wingame">
-                    <div class="win">W</div>
-                    <div class="win">i</div>
-                    <div class="win">n</div>
+            <div id="endgame">
+                <div id="popup">
+                    <div id="wingame">
+                        <div class="win">W</div>
+                        <div class="win">i</div>
+                        <div class="win">n</div>
+                    </div>
+                    <div id="losegame">
+                        <div class="lose">L</div>
+                        <div class="lose">o</div>
+                        <div class="lose">s</div>
+                        <div class="lose">e</div>
+                    </div>
+                    <button id="playagain">Play again</button>
                 </div>
-                <div id="losegame">
-                    <div class="lose">L</div>
-                    <div class="lose">o</div>
-                    <div class="lose">s</div>
-                    <div class="lose">e</div>
-                </div>
-                <button id="playagain">Play again</button>
             </div>
         </div>
 
-
-        <!--<div class="emoji_1">-->
-            <!--<div class="card_1">-->
-                <!--<div class="card__face card__face&#45;&#45;front">-->
-                    <!--emoji_1-->
-                <!--</div>-->
-                <!--<div class="card__face card__face&#45;&#45;back">back</div>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div id="timer">
+            <span id="min">00</span><span id="dots">:</span><span id="sec">00</span>
+        </div>
 
 
-    </div>
 
-    <div id="timer">
-        <span id="min">00</span><span id="dots">:</span><span id="sec">00</span>
-    </div>
+        <script src="./timer.js"></script>
+        <script src="./emoji.js"></script>
+        <script src="./script.js"></script>
 
-    <script src="timer.js"></script>
-    <script src="emoji.js"></script>
-    <script src="script.js"></script>
-
-</body>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/qunit/qunit-2.7.1.js"></script>
+        <script src="tests.js"></script>
+    </body>
 </html>
