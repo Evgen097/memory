@@ -159,11 +159,15 @@ window.onload = function() {
             };
         }
 
+        setGameTime(time){
+            this.timer.setTime(time)
+        }
+
     }
 
 
-    var emojis = new  Emojis('.emojis');
-    emojis.init();
+    window.EMOJIS = new  Emojis('.emojis');
+    EMOJIS.init();
 
 
 

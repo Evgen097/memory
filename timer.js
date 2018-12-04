@@ -5,7 +5,7 @@ class Timer {
         this.timerId = '';
         this.isRunning = false;
 
-        this.DOMElement = document.getElementById('sec');;
+        this.DOMElement = document.getElementById('sec');
         this.endgame = document.querySelector('#endgame');
         this.losegame = document.querySelector('#losegame');
     }
@@ -32,7 +32,7 @@ class Timer {
 
     startNewTimer(){
         this.timerStop();
-        this.time = 60;
+        // this.time = 60;
         this.DOMElement.textContent = this.time;
         this.isRunning = true
         this.timerRun();
