@@ -1,9 +1,9 @@
 $(document).ready(function(){
 
     function deleteClass(selector, oldClass){
-            $(selector).each(function(i,elem) {
-                elem.classList.remove(oldClass)
-            });
+        $(selector).each(function(i,elem) {
+            elem.classList.remove(oldClass)
+        });
     };
 
     QUnit.module( "Модуль проверки кликов", {
@@ -58,11 +58,11 @@ $(document).ready(function(){
         assert.expect( 12);
 
         $('.card__face--front').each(function(i,elem) {
-                elem.click();
-                var parent = elem.parentElement;
-                assert.equal(parent.classList.contains('is-flipped'), true, parent.classList);
+            elem.click();
+            var parent = elem.parentElement;
+            assert.equal(parent.classList.contains('is-flipped'), true, parent.classList);
 
-                elem.click();
+            elem.click();
         });
     });
 
@@ -154,6 +154,7 @@ $(document).ready(function(){
     QUnit.test( "проверка отсчета времени после начала игры", function( assert ) {
         assert.expect( 4 );
         var done = assert.async( 1 );
+        var countSec = 0;
 
         var time = $('#sec')[0];
         var count = 60;
@@ -164,14 +165,15 @@ $(document).ready(function(){
         $('.card__face--front')[0].click();
         var timerId = setInterval( () =>{
             count -= 1;
+            countSec += 1;
             assert.equal(+time.innerText, count, 'time is: ', time);
+            if(countSec === 3 ){
+                clearInterval(timerId);
+                EMOJIS.startNewGame();
+                done();
+            }
         }, 1000 );
 
-        setTimeout( () =>{
-            clearInterval(timerId);
-            EMOJIS.startNewGame();
-            done();
-        }, 3000 )
     });
 
 
